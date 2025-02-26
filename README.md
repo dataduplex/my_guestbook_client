@@ -1,3 +1,5 @@
+Creates concurrent GET and POST requests to guestbook server.
+
 Sample Run:
 
 ```
