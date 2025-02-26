@@ -25,6 +25,7 @@ func main() {
 	wg.Wait()
 }
 
+// spawn worker threads and send get requests
 func runGets(client *GuestbookClient, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -50,6 +51,7 @@ func runGets(client *GuestbookClient, wg *sync.WaitGroup) {
 	getWg.Wait()
 }
 
+// GET worker, calls guestbook client
 func runGet(client *GuestbookClient, inputCh chan struct{}, replyCh chan int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	count := 0
@@ -59,6 +61,7 @@ func runGet(client *GuestbookClient, inputCh chan struct{}, replyCh chan int, wg
 	}
 }
 
+// process responses from all get workers
 func processGetResponses(replyCh chan int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	max := 0
@@ -70,6 +73,7 @@ func processGetResponses(replyCh chan int, wg *sync.WaitGroup) {
 	}
 }
 
+// spawn worker threads and send post requests
 func runPosts(client *GuestbookClient, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -91,6 +95,7 @@ func runPosts(client *GuestbookClient, wg *sync.WaitGroup) {
 	postWg.Wait()
 }
 
+// post worker
 func runPost(client *GuestbookClient, inputCh chan int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for i := range inputCh {
