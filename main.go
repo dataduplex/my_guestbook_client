@@ -54,10 +54,8 @@ func runGets(client *GuestbookClient, wg *sync.WaitGroup) {
 // GET worker, calls guestbook client
 func runGet(client *GuestbookClient, inputCh chan struct{}, replyCh chan int, wg *sync.WaitGroup) {
 	defer wg.Done()
-	count := 0
 	for range inputCh {
 		client.DoGet(replyCh)
-		count++
 	}
 }
 
